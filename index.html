@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="utf-8">
+  <title>我的 DOM 库</title>
+</head>
+<body>
+  <ul>
+    <li class="error">1</li>
+    <li class="error">2</li>
+    <li class="error">3</li>
+    <li class="error">4</li>
+  </ul>
+
+	<script src="dom.js"></script>
+
+	<script>
+	  console.assert(typeof $ === 'function');
+	  
+		let items = $('li');    
+
+		//.on 功能的验证
+		console.assert(items.on !== undefined);
+		items.on('click',function(){
+		  console.log('click');			 
+		})
+
+		//.addClass和.removeClass 功能的验证
+		console.assert(items.addClass('hi') === items);
+					
+		//链式调用。 因为.addClass 返回的是一个 array
+		items.addClass('hi').removeClass('error');
+
+		// .text 功能的验证
+		items.text('你好');
+		
+		//获取 items 的内容
+		let textList = items.text();   // 输出['你好' x 4]
+		
+		console.assert(items.addEventListener === undefined);
+		
+		let item = items.get(0);
+		
+		let $item = $(item);        //$item 是 array，item 是元素
+		
+		console.assert(item.tagName === 'LI');			//注意这里是大写
+		console.assert(item.addEventListener !== undefined);
+		
+		console.assert(item === items[0]);
+
+		console.assert(item.siblings === undefined); 	
+
+		console.assert($item.siblings !== undefined);
+		
+		//$item 第一个li
+		//$item.siblings() 返回它的兄弟
+		console.assert($item[0] === item);
+		
+		let $li = $('li:nth-child(2)'); //array
+
+		$li.siblings().addClass('error');
+		
+		console.assert($li.siblings().previousSelection === $li);
+		console.assert($li.siblings().end() === $li.siblings().previousSelection);
+		
+		$li.siblings().removeClass('error').end().addClass('error');
+		
+		console.assert(typeof item.on ==='undefined');
+		console.assert(typeof $item.on ==='function');
+		
+		console.log('运行完毕');
+		
+	</script>
+
+	<style>
+		.h1{
+			color: blue;
+			border: 1px solid;
+		}
+		.error{
+			color: red;
+		}
+	</style>
+</body>
+</html>
