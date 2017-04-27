@@ -47,7 +47,7 @@ window.$ = function(selectorNode){
 		for(var i=0; i < items.length; i++){			//遍历这个数组
 			array.push(items[i]);
 		}
-														//判断一个元素是不是节点用 instanceof
+									//判断一个元素是不是节点用 instanceof
 	}else if(selectorNode instanceof Element){			// instanceof Node 和 instanceof Element 的区别，Node可能还包括了其他的节点
 		array.push(selectorNode);					
 			
